@@ -1,0 +1,14 @@
+// --axios
+const instance = axios.create({
+	baseURL: "http://localhost:8080"
+})
+	
+instance.interceptors.response.use(response => {
+	return response;
+}, function(error){
+	if(error.response.status === 404){
+		return {status: error.response.status}
+	}
+	return Promise.reject(error.response);
+	
+});

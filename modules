@@ -1,0 +1,79 @@
+// server.js
+
+const express = require("express");
+const app = express();
+
+const db = require("./app/models");
+db.sequelize.sync();
+
+app.get("/", (req, res)=>{
+	res.json({user:"atiksh"});
+})
+
+
+app.listen(8080,()=>{
+	console.log("server is running");
+})
+
+//localhost:8080/ ?
+
+//comments.module.js
+module.exports=(sequelize, DataTypes)=>{
+	const Comment = sequelize.define("comments", {
+		name:{
+			type: DataTypes.STRING
+		}
+	}, {
+		// don't add the timestamp attributes (updatedAt, createdAt)
+  		//timestamps: false,
+
+		  // If don't want createdAt
+		  createdAt: false,
+		
+		  // If don't want updatedAt
+		  //updatedAt: false,
+	});
+	return Comment;
+}
+
+//post.module,js
+module.exports=(sequelize, DataTypes)=>{
+	const Post = sequelize.define("Post", {
+		name:{
+			type: DataTypes.STRING
+		}
+	}, {
+		// don't add the timestamp attributes (updatedAt, createdAt)
+  		timestamps: false,
+
+		  // If don't want createdAt
+		  //createdAt: false,
+		
+		  // If don't want updatedAt
+		  //updatedAt: false,
+	});
+	return Post;
+}
+
+//index.js
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize("photo-app",  "root",  "root", {
+	host: "localhost",
+	dialect: "mysql",
+});
+const db = {};
+
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+
+db.users = require("./post.module.js")(sequelize, Sequelize);
+db.comments = require("./comments.module.js")(sequelize, Sequelize);
+module.exports = db;
+---------------------------------------------------------------------------------------------------
+"dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "node": "^15.10.0",
+    "sequelize": "^6.6.2"
+  }

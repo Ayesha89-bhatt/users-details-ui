@@ -1,0 +1,27 @@
+/* Express server */
+const express=require("express");
+
+const cors = require("cors"); 
+
+/** app */
+const app = express();
+var corsOptions = {
+	origin: "*"
+}
+app.use(cors(corsOptions));
+
+/* define port number in which program will run*/
+const PORT = process.env.PORT || 8080;
+
+/* this is an api to get user detail*/
+app.get("/", (req, res)=> {
+	res.json({user: "Ayushi"})
+})
+
+
+app.listen(PORT, ()=> {
+	console.log(`Server is running on port ${PORT}`)
+})
+
+//localhost:8080/
+
