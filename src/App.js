@@ -1,46 +1,79 @@
-import React from 'react';
-
-import Login from './Login/Login.js';
-import Register from './Register/Register.js';
-
-//import Data from './Data/Data.js'; //tukka mar rha ab main mera asar ahahahahah
-
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import './styles/App.scss';
-import UsersData from './Users/UsersData.js';
+import React, { useState } from 'react';
+import BasicInfo from './Components/BasicInfo.js';
 
 
+import { Container, Row, Col, Card } from 'reactstrap';
 
+import CreateHeader from './Components/Header.js';
+import Sidebar from './Components/Sidebar.js';
+import ServiceInfo from './Components/ServiceInfo.js';
+import PropertyForm from './Components/PropertyForm..js';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import BasicDetail from './Users/UsersData.js';
+
+//import Data from './Data/Data.js';
 function App() {
-
+  const [basicToggle, setBasicToggle] = useState(true);
+  const [serviceToggle, setServiceToggle] = useState(false);
+  const [propertyToggle, setPropertyToggle] = useState(false);
   return (
     <div>
-      <nav className="navbar navbar-light bg-dark">
-  <div className="container-fluid">
-    <span className="navbar-brand mb-0 h1"><b>PHOTO APP</b></span>
-    
-      <button className="btn btn-warning" type="submit">Search</button>
-  </div>
-</nav>
-    {/*
-    kya ho rha yar ye smjh hi naa aarha ?m pgl hori tbse 
-    baaki tym 200 aa rha es data file ke tym 304 aa rha hahahhaha
-    kya krre ho yr????
+      <CreateHeader />
+      <Row>
+        <Col md={3}>
+          <Sidebar />
+        </Col>
+        <Col md={9}>
 
-    ye ???200 dera ab br br hahhahahah but jb register pe diya wo page to kaam kiya haa ye ptani ku nii krra mtlb route dikkat kr rha sayad ho skta h
-    ek new banaun starting se ?rehne do aj sirf banaunga baaki kuch nhin ek trf wo
-    chalta rhega ek trf ese dekhte hain ooooooookk
-    esi m
-    */}
-  <Router>
-    <Switch>
-      <Route exact path ="/Login" component={Login}/>
-      <Route exact path="/Register" component={Register}/>
-      <Route exact path="/UsersData" component={UsersData}/>
-     
-    </Switch>
-  </Router>
-  </div>   
+          <Card style={{ border: '2px solid blue', marginTop: '8px', backgroundColor: "skyblue" }}>
+
+            <h5 style={{ marginLeft: "15px" }}
+              onClick={() => {
+                setBasicToggle(!basicToggle);
+                setServiceToggle(false);
+                setPropertyToggle(false);
+
+              }} >Basic Informaation
+                <span><i className={basicToggle ? "fa fa-caret-down" : "fa fa-caret-right"}></i></span>
+            </h5>
+
+          </Card>
+          <BasicInfo basicToggle={basicToggle} />
+
+          <Card style={{ border: "2px solid black", marginTop: "4px", backgroundColor: "skyblue" }}>
+            <h5 style={{ marginLeft: "15px" }}
+              onClick={() => {
+                setServiceToggle(!serviceToggle);
+                setBasicToggle(false);
+                setPropertyToggle(false);
+
+              }}>Services Requested
+            <span><i className={serviceToggle ? "fa fa-caret-down" : "fa fa-caret-right"}></i></span></h5>
+          </Card>
+          <ServiceInfo serviceToggle={serviceToggle} />
+
+          <Card style={{ border: "2px solid green", marginTop: "4px", backgroundColor: "skyblue" }}>
+            <h5 style={{ marginLeft: "15px" }}
+              onClick={() => {
+                setPropertyToggle(!propertyToggle);
+                setBasicToggle(false);
+                setServiceToggle(false);
+              }}>Property Location Informaation
+          <span><i className={propertyToggle ? "fa fa-caret-down" : "fa fa-caret-right"}>
+              </i></span>
+            </h5>
+          </Card >
+          <PropertyForm propertyToggle={propertyToggle} />
+        </Col>
+
+      </Row>
+
+      <Router>
+        <Switch>
+          <Route exact path='/table' component={BasicDetail} />
+        </Switch>
+      </Router>
+    </div >
   );
 }
 

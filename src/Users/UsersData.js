@@ -1,65 +1,77 @@
-import React , {useState, useEffect}from 'react';
-import UserService from '../Service/userService';
-const UsersData = () => {
-    const[users, setUsers] = useState([]);
+import React, { useState, useEffect } from 'react';
+
+import InformationService from '../Service/informationService.js';
+
+const BasicDetail = () => {
+    const [basicInfo, setBasicInfo] = useState([]);
 
     useEffect(() => {
         console.log("use effect pe call aayi  ");
-        async function getUsers(){
-            let response= await UserService.getUser(); 
-            console.log("data from backend :: "+JSON.stringify(response));
-            setUsers(response.data); 
+        async function getBasicInfoData() {
+            let response = await InformationService.getBasicInfo();
+            console.log("data from backend :: " + JSON.stringify(response));
+            setBasicInfo(response.data);
         }
-        getUsers();
-        }, []);
+        getBasicInfoData();
+    }, []);
 
-        //first ltr capital
-      //  function firstLtrCaps(name) {
-            //name = "abc"
-        //}
+    //first ltr capital
+    //  function firstLtrCaps(name) {
+    //name = "abc"
+    //}
 
-        // this function is used to covert all char caps before @
-        function convertFirstLtr(email) {
-            if(email !== 'undefined' && email !== "") {
-                var emArr = email.split("@");
-                email = emArr[0].toUpperCase()+"@"+emArr[1];
-            } else{
-                email = "----";
-            }
-            
-            return email;
-        }
+    /**
+     * 
+     * client: "tech compiler"
+    createdAt: "2021-04-18T21:15:53.712Z"
+    id: "607ca1897c38310c6c531bb8"
+    projectDate: "18-04-2021"
+    projectNumber: "project-1"
+     */
 
-        return(
+
+    return (
         <div>
             <h1><center>Users Details</center></h1>
             <table className="table">
                 <thead>
                     <tr>
-                    <th>Name</th>
-                    <th>Phone Number</th>
-                    <th>Email</th>
-                    <th>Action</th>
+                        <th>projectNumber</th>
+                        <th>projectDate</th>
+                        <th>client</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        users.map(user=>
-                            <tr key={user.id}>
-                                <td>{user.name.toUpperCase()}</td>
-                                <td>{user.phoneNumber}</td>
-                                <td>{convertFirstLtr(user.email)}</td>
+                        basicInfo.map(info =>
+                            <tr key={info.id}>
+                                <td>{info.projectNumber}</td>
+                                <td></td>
+                                <td></td>
                                 <td><button className="btn btn-warning">Update</button><button className="btn btn-danger">Delete</button></td>
-                                </tr>
-                            
+                            </tr>
+
+
+
                         )
                     }
-                    
+
+
+
+
+
+
+
+
+
+
+
                 </tbody>
 
             </table>
         </div>
-        )
+    )
 };
 
-export default UsersData;
+export default BasicDetail;
