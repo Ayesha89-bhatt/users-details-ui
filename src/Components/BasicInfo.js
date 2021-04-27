@@ -15,7 +15,7 @@ export default function BasicInfo(props) {
     //    const toggle = () => setIsOpen(!isOpen);
 
     const handleChange = (e) => {
-
+        console.log("basicInfo :: " + JSON.stringify(basicInfo));
         console.log("fieldName :: " + e.target.name);
         console.log(e.target.value);
         setBasicInfo({

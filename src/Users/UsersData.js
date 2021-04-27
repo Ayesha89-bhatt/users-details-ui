@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
+//import BootstrapTable from 'react-bootstrap-table-next';
+//import 'bootstrap/dist/css/bootstrap.min.css';
+import { TablePagination } from 'react-pagination-table';
+import FakeData from '../Service/FakeData.js';
+
 
 import InformationService from '../Service/informationService.js';
+const Header = ["Project Number", "Project Date", "Client"];
 
 const BasicDetail = () => {
     const [basicInfo, setBasicInfo] = useState([]);
@@ -11,35 +17,21 @@ const BasicDetail = () => {
             let response = await InformationService.getBasicInfo();
             console.log("data from backend :: " + JSON.stringify(response));
             setBasicInfo(response.data);
+            //setBasicInfo(FakeData);
         }
         getBasicInfoData();
     }, []);
 
-    //first ltr capital
-    //  function firstLtrCaps(name) {
-    //name = "abc"
-    //}
-
-    /**
-     * 
-     * client: "tech compiler"
-    createdAt: "2021-04-18T21:15:53.712Z"
-    id: "607ca1897c38310c6c531bb8"
-    projectDate: "18-04-2021"
-    projectNumber: "project-1"
-     */
-
-
     return (
         <div>
             <h1><center>Users Details</center></h1>
+
             <table className="table">
                 <thead>
                     <tr>
-                        <th>projectNumber</th>
-                        <th>projectDate</th>
-                        <th>client</th>
-                        <th>Action</th>
+                        <th>ProjectNumber</th>
+                        <th>ProjectDate</th>
+                        <th>Client</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,29 +39,30 @@ const BasicDetail = () => {
                         basicInfo.map(info =>
                             <tr key={info.id}>
                                 <td>{info.projectNumber}</td>
-                                <td></td>
-                                <td></td>
-                                <td><button className="btn btn-warning">Update</button><button className="btn btn-danger">Delete</button></td>
+                                <td>{info.projectDate}</td>
+                                <td>{info.client}</td>
+
                             </tr>
-
-
-
                         )
                     }
-
-
-
-
-
-
-
-
-
-
-
                 </tbody>
-
             </table>
+
+            */}
+
+            <TablePagination
+
+
+                headers={Header}
+                data={basicInfo}
+                columns="projectNumber.projectDate.client"
+                perPageItemCount={1}
+                totalCount={basicInfo.length - 5}
+                arrayOption={[["size", 'all', ' ']]}
+            />
+
+
+
         </div>
     )
 };
