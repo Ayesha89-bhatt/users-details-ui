@@ -63,7 +63,7 @@ export default function BasicInfo(props) {
                     </FormGroup>
                     <Button type="button" onClick={() => console.log(JSON.stringify(basicInfo))}>Continue</Button>
                     <Button type="button" onClick={() => InformationService.addBasicInfo(basicInfo)}>Save</Button>
-
+					<p>hello</p>	
                 </Form>
             </Collapse>
         </div>
